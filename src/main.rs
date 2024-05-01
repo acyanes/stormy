@@ -22,7 +22,7 @@ fn main() {
         // print user input
         if input == "ls" {
             let ls = LsCommand;
-            println!("files/folders {:?}", ls.execute());
+            println!("{:?}", ls.execute());
         }
     }
 }
@@ -36,16 +36,24 @@ impl LsCommand {
             .collect::<Result<Vec<_>, io::Error>>()?;
 
         entries.sort();
-        println!("entries: {:?}", entries);
 
         for entry in &entries {
             let new_path = Path::new(entry);
             let file_stem = new_path.file_stem();
-            print!("{:?}", file_stem.unwrap());
-        }
-        // todo: change return type and remove quotes from result
+            let file_extension = new_path.extension();
+            let name = file_stem.unwrap().to_string_lossy();
 
-        Ok(())
+            if let Some(extension) = file_extension {
+                print!(
+                    "{}.{} ",
+                    name.replace(' ', r"\ "),
+                    extension.to_str().unwrap()
+                );
+            } else {
+                print!("{} ", name.replace(' ', r"\ "));
+            }
+        }
+        Ok(()) // todo figure out how to remove the "Ok(())" at end of string
     }
 }
 
@@ -55,3 +63,7 @@ impl CatCommand {
         println!("Cat command execute")
     }
 }
+
+struct PwdCommand;
+struct ChangeDirectoryCommand;
+struct RemoveCommand;

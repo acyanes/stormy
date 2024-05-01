@@ -1,0 +1,11 @@
+todo
+[] implement pwd command
+[] implement cat command
+[] implement cd command
+[] implement rm command
+[] figure out how to remove the "Ok(())" at end of string
+
+
+
+
+
