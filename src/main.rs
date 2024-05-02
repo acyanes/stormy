@@ -8,7 +8,7 @@ fn main() {
     let mut shell = true;
     while shell {
         let mut input = String::new();
-        print!(">> ");
+        print!("stormy> ");
         io::stdout().flush().unwrap();
         io::stdin()
             .read_line(&mut input)
@@ -23,6 +23,15 @@ fn main() {
         if input == "ls" {
             let ls = LsCommand;
             println!("{:?}", ls.execute());
+        }
+
+        if input == "pwd" {
+            let pwd = PwdCommand;
+            println!("{:?}", pwd.execute());
+        }
+
+        if input == "exit" {
+            shell = false;
         }
     }
 }
@@ -53,17 +62,23 @@ impl LsCommand {
                 print!("{} ", name.replace(' ', r"\ "));
             }
         }
-        Ok(()) // todo figure out how to remove the "Ok(())" at end of string
+        Ok(())
     }
 }
 
 struct CatCommand;
 impl CatCommand {
     fn execute(&self) {
-        println!("Cat command execute")
+        println!("cat command");
     }
 }
 
 struct PwdCommand;
+impl PwdCommand {
+    fn execute(&self) {
+        let working_dir = env::current_dir().unwrap();
+        println!("{:?}", working_dir.to_str().unwrap());
+    }
+}
 struct ChangeDirectoryCommand;
 struct RemoveCommand;

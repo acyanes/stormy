@@ -2,8 +2,10 @@ todo
 [] implement pwd command
 [] implement cat command
 [] implement cd command
-[] implement rm command
-[] figure out how to remove the "Ok(())" at end of string
+[] implement touch command
+[x] enter "exit" and shell terminates
+[] clean code up / make it modular or more 'rust' like
+[] figure out how to remove the "Ok(()) / ()" at end of string
 
 
 
